@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Progress } from "@/components/ui/progress"
 import { resumeData } from "@/lib/data/ResumeData"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Image from "next/image"
 
 // Map the projects to match the expected format
 const projects = resumeData.projects.map(project => ({
@@ -68,9 +69,11 @@ export default function ProjectsView() {
           <Card key={project.id} className="overflow-hidden border border-border/20 shadow-none hover-card group">
             <div className="relative overflow-hidden">
               <img
-                src={project.image || "/placeholder.svg"}
+                src={project.image[0] || "/placeholder.svg?height=150&width=300"}
                 alt={project.title}
                 className="h-[150px] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                height={150}
+                width={150}
               />
               <div className="absolute right-2 top-2">
                 <DropdownMenu>
