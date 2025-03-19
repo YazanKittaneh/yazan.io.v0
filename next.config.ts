@@ -5,14 +5,6 @@ const nextConfig: NextConfig = {
   experimental: {
     ppr: true
   },
-  images: {
-    localPatterns: [
-      {
-        pathname: 'images/**',
-        search: '',
-      },
-    ],
-  },
 };
 
 export default nextConfig;
