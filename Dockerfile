@@ -21,7 +21,6 @@ COPY public ./public
 COPY components ./components
 COPY lib ./lib
 COPY next.config.mjs .
-COPY prisma ./prisma
 COPY components.json .
 COPY tailwind.config.ts .
 COPY tsconfig.json .
