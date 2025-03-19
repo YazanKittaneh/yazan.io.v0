@@ -10,57 +10,22 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Progress } from "@/components/ui/progress"
+import { resumeData } from "@/lib/data/ResumeData"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-// Sample project data
-const projects = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    description: "A full-stack e-commerce platform with payment integration",
-    image: "/placeholder.svg?height=150&width=300",
-    status: "Completed",
-    date: "Mar 2024",
-    technologies: ["React", "Node.js", "MongoDB"],
-    github: "https://github.com",
-    demo: "https://demo.com",
-    featured: true,
-  },
-  {
-    id: 2,
-    title: "Task Management App",
-    description: "A collaborative task management application with real-time updates",
-    image: "/placeholder.svg?height=150&width=300",
-    status: "Completed",
-    date: "Jan 2024",
-    technologies: ["Vue.js", "Express", "PostgreSQL"],
-    github: "https://github.com",
-    demo: "https://demo.com",
-    featured: true,
-  },
-  {
-    id: 3,
-    title: "Portfolio Website",
-    description: "A personal portfolio website showcasing projects and skills",
-    image: "/placeholder.svg?height=150&width=300",
-    status: "In Progress",
-    date: "Apr 2024",
-    technologies: ["Next.js", "Tailwind CSS"],
-    github: "https://github.com",
-    featured: false,
-  },
-  {
-    id: 4,
-    title: "Weather Dashboard",
-    description: "A weather dashboard with location-based forecasts",
-    image: "/placeholder.svg?height=150&width=300",
-    status: "Completed",
-    date: "Dec 2023",
-    technologies: ["React", "OpenWeather API"],
-    github: "https://github.com",
-    demo: "https://demo.com",
-    featured: false,
-  },
-]
+// Map the projects to match the expected format
+const projects = resumeData.projects.map(project => ({
+  id: project.id,
+  title: project.title,
+  description: project.description,
+  image: project.images.length > 0 ? project.images[0] : "/placeholder.svg?height=150&width=300",
+  status: project.category.includes("IN DEVELOPMENT") ? "In Progress" : "Completed",
+  date: project.year,
+  technologies: project.category,
+  github: "https://github.com",
+  demo: project.url,
+  featured: true,
+}));
 
 export default function ProjectsView() {
   const [filter, setFilter] = useState("all")
@@ -77,7 +42,7 @@ export default function ProjectsView() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-2xl font-normal tracking-tight text-foreground/90">Projects</h2>
-          <p className="text-muted-foreground">Browse through my portfolio of {projects.length} projects</p>
+          <p className="text-muted-foreground">Browse through my portfolio of {resumeData.projects.length} projects</p>
         </div>
         <div className="flex items-center gap-2">
           <Input
@@ -163,12 +128,29 @@ export default function ProjectsView() {
             </CardHeader>
             <CardContent className="p-4 pt-0">
               <div className="flex flex-wrap gap-1">
-                {project.technologies.map((tech) => (
-                  <Badge key={tech} variant="outline" className="bg-secondary/30 border-border/20 font-normal text-xs">
+                {project.technologies.map((tech, idx) => (
+                  <Badge key={idx} variant="outline" className="bg-secondary/30 border-border/20 font-normal text-xs">
                     {tech}
                   </Badge>
                 ))}
               </div>
+              
+              <Tabs defaultValue="challenge" className="mt-4">
+                <TabsList className="grid w-full grid-cols-3">
+                  <TabsTrigger value="challenge">Challenge</TabsTrigger>
+                  <TabsTrigger value="approach">Approach</TabsTrigger>
+                  <TabsTrigger value="result">Result</TabsTrigger>
+                </TabsList>
+                <TabsContent value="challenge" className="text-xs mt-2">
+                  {resumeData.projects.find(p => p.id === project.id)?.challenge}
+                </TabsContent>
+                <TabsContent value="approach" className="text-xs mt-2">
+                  {resumeData.projects.find(p => p.id === project.id)?.approach}
+                </TabsContent>
+                <TabsContent value="result" className="text-xs mt-2">
+                  {resumeData.projects.find(p => p.id === project.id)?.result}
+                </TabsContent>
+              </Tabs>
             </CardContent>
             <CardFooter className="flex items-center justify-between border-t border-border/20 p-4 text-sm text-muted-foreground">
               <div className="flex items-center">
