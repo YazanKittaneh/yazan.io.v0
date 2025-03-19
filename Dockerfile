@@ -3,7 +3,7 @@ FROM node:18-alpine AS base
 # Step 1. Rebuild the source code only when needed
 FROM base AS builder
 
-WORKDIR .
+WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
@@ -32,7 +32,10 @@ COPY tsconfig.json ../
 ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
 ENV POSTGRES_URL=${DATABASE_URL}
-
+ARG STRIPE_SECRET_KEY
+ENV STRIPE_SECRET_KEY=${STRIPE_SECRET_KEY}
+ARG STRIPE_WEBHOOK_SECRET
+ENV STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET}
 
 # pnpm db:migrate
 RUN \
