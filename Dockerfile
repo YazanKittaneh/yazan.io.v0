@@ -42,11 +42,7 @@ RUN \
     fi
 # pnpm db:seed
 RUN \
-    if [ -f yarn.lock ]; then yarn db:seed; \
-    elif [ -f package-lock.json ]; then npm db:seed; \
-    elif [ -f pnpm-lock.yaml ]; then pnpm db:seed; \
-    else npm db:seed; \
-    fi
+    npx tsx lib/db/seed.ts
 
 # Build Next.js based on the preferred package manager
 RUN \
