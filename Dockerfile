@@ -42,7 +42,7 @@ RUN \
     fi
 # pnpm db:seed
 RUN \
-    npx tsx lib/db/seed.ts
+    npx tsx ./lib/db/seed.ts
 
 # Build Next.js based on the preferred package manager
 RUN \
