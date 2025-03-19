@@ -17,14 +17,16 @@ RUN \
 
 # Adjust the files and folders that should be copied to the build container
 COPY app ./app
-COPY public ./public
 COPY components ./components
 COPY lib ./lib
-COPY next.config.mjs .
+COPY hooks ./hooks
 COPY components.json .
+COPY drizzle.config.ts .
+COPY middleware.ts .
+COPY next.config.ts .
+COPY postcss.config.mjs .
 COPY tailwind.config.ts .
 COPY tsconfig.json .
-COPY postcss.config.mjs .
 
 # Environment variables must be present at build time
 ARG DATABASE_URL
