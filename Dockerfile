@@ -45,8 +45,7 @@ RUN \
     else npm db:migrate; \
     fi
 # pnpm db:seed
-RUN \
-    npx tsx ./lib/db/seed.ts
+RUN pnpm run db:seed;
 
 # Build Next.js based on the preferred package manager
 RUN \
