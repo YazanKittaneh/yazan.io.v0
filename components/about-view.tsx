@@ -5,8 +5,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
+import { resumeData } from "@/lib/data/ResumeData"
 
 export default function AboutView() {
+  const { name, contact, experiences, education } = resumeData;
+  const latestExperience = experiences[0];
+  const initials = name.split(' ').map(n => n[0]).join('');
+  
   return (
     <div className="space-y-8">
       <div>
@@ -20,25 +25,25 @@ export default function AboutView() {
             <div className="mx-auto mb-4">
               <Avatar className="h-24 w-24 border-0 ring-2 ring-border/20 ring-offset-2 ring-offset-background">
                 <AvatarImage src="/placeholder.svg?height=96&width=96" alt="Profile" />
-                <AvatarFallback className="text-2xl bg-primary/10 text-primary">JP</AvatarFallback>
+                <AvatarFallback className="text-2xl bg-primary/10 text-primary">{initials}</AvatarFallback>
               </Avatar>
             </div>
-            <CardTitle className="font-normal">John Portfolio</CardTitle>
-            <CardDescription>Full Stack Developer</CardDescription>
+            <CardTitle className="font-normal">{name}</CardTitle>
+            <CardDescription>{latestExperience.title}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-muted-foreground" />
-                <span>San Francisco, CA</span>
+                <span>{latestExperience.location}</span>
               </div>
               <div className="flex items-center gap-2">
                 <GraduationCap className="h-4 w-4 text-muted-foreground" />
-                <span>Computer Science, Stanford University</span>
+                <span>{education[0].degree}, {education[0].institution}</span>
               </div>
               <div className="flex items-center gap-2">
                 <Briefcase className="h-4 w-4 text-muted-foreground" />
-                <span>5+ Years Experience</span>
+                <span>{experiences.length}+ Years Experience</span>
               </div>
 
               <Separator className="bg-border/20" />
@@ -46,21 +51,13 @@ export default function AboutView() {
               <div>
                 <h4 className="mb-2 font-normal">Interests</h4>
                 <div className="flex flex-wrap gap-1">
-                  <Badge variant="outline" className="bg-secondary/30 border-border/20 font-normal text-xs">
-                    Web Development
-                  </Badge>
-                  <Badge variant="outline" className="bg-secondary/30 border-border/20 font-normal text-xs">
-                    UI/UX Design
-                  </Badge>
-                  <Badge variant="outline" className="bg-secondary/30 border-border/20 font-normal text-xs">
-                    AI
-                  </Badge>
-                  <Badge variant="outline" className="bg-secondary/30 border-border/20 font-normal text-xs">
-                    Open Source
-                  </Badge>
-                  <Badge variant="outline" className="bg-secondary/30 border-border/20 font-normal text-xs">
-                    Photography
-                  </Badge>
+                  {resumeData.technologies.slice(0, 5).flatMap(category => 
+                    category.skills.slice(0, 1).map(skill => (
+                      <Badge key={skill} variant="outline" className="bg-secondary/30 border-border/20 font-normal text-xs">
+                        {skill}
+                      </Badge>
+                    ))
+                  )}
                 </div>
               </div>
             </div>
@@ -73,13 +70,12 @@ export default function AboutView() {
           </CardHeader>
           <CardContent className="space-y-4">
             <p>
-              I'm a passionate Full Stack Developer with over 5 years of experience building web applications and
-              digital experiences. I specialize in JavaScript technologies, particularly React and Node.js, and have a
+              I'm a passionate {latestExperience.title} with over {experiences.length} years of experience building web applications and
+              digital experiences. I specialize in {resumeData.technologies[0].skills.slice(0, 2).join(" and ")}, and have a
               strong foundation in software architecture and design patterns.
             </p>
             <p>
-              My approach combines technical expertise with a keen eye for user experience. I believe in writing clean,
-              maintainable code and creating intuitive interfaces that solve real problems for users.
+              {latestExperience.achievements[0].replace(/\*\*/g, '')}
             </p>
             <p>
               When I'm not coding, you can find me contributing to open source projects, writing technical articles, or
@@ -115,79 +111,46 @@ export default function AboutView() {
         </TabsList>
 
         <TabsContent value="experience" className="space-y-4 animate-in fade-in-50 duration-300">
-          <Card className="border border-border/20 shadow-none hover-card">
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="font-normal">Senior Frontend Developer</CardTitle>
-                  <CardDescription>TechCorp Inc.</CardDescription>
+          {experiences.slice(0, 2).map((exp, index) => (
+            <Card key={index} className="border border-border/20 shadow-none hover-card">
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <CardTitle className="font-normal">{exp.title}</CardTitle>
+                    <CardDescription>{exp.company}</CardDescription>
+                  </div>
+                  <Badge className="font-normal text-xs bg-secondary/50 text-secondary-foreground">{exp.period}</Badge>
                 </div>
-                <Badge className="font-normal text-xs bg-secondary/50 text-secondary-foreground">2021 - Present</Badge>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <ul className="list-disc pl-5 space-y-2">
-                <li>Led the frontend development of the company's flagship product</li>
-                <li>Implemented a new component library that reduced development time by 30%</li>
-                <li>Mentored junior developers and conducted code reviews</li>
-                <li>Collaborated with design and product teams to improve user experience</li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          <Card className="border border-border/20 shadow-none hover-card">
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="font-normal">Full Stack Developer</CardTitle>
-                  <CardDescription>Innovate Solutions</CardDescription>
-                </div>
-                <Badge className="font-normal text-xs bg-secondary/50 text-secondary-foreground">2018 - 2021</Badge>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <ul className="list-disc pl-5 space-y-2">
-                <li>Developed and maintained multiple client web applications</li>
-                <li>Built RESTful APIs using Node.js and Express</li>
-                <li>Implemented authentication and authorization systems</li>
-                <li>Optimized database queries and improved application performance</li>
-              </ul>
-            </CardContent>
-          </Card>
+              </CardHeader>
+              <CardContent>
+                <ul className="list-disc pl-5 space-y-2">
+                  {exp.achievements.map((achievement, i) => (
+                    <li key={i}>{achievement.replace(/\*\*/g, '')}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          ))}
         </TabsContent>
 
         <TabsContent value="education" className="space-y-4 animate-in fade-in-50 duration-300">
-          <Card className="border border-border/20 shadow-none hover-card">
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="font-normal">M.S. in Computer Science</CardTitle>
-                  <CardDescription>Stanford University</CardDescription>
+          {education.map((edu, index) => (
+            <Card key={index} className="border border-border/20 shadow-none hover-card">
+              <CardHeader>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <CardTitle className="font-normal">{edu.degree}</CardTitle>
+                    <CardDescription>{edu.institution}</CardDescription>
+                  </div>
+                  <Badge className="font-normal text-xs bg-secondary/50 text-secondary-foreground">{edu.graduationDate}</Badge>
                 </div>
-                <Badge className="font-normal text-xs bg-secondary/50 text-secondary-foreground">2016 - 2018</Badge>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p>Specialized in Human-Computer Interaction and Web Technologies</p>
-              <p className="mt-2">Thesis: "Improving User Experience in Progressive Web Applications"</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border border-border/20 shadow-none hover-card">
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="font-normal">B.S. in Computer Science</CardTitle>
-                  <CardDescription>University of California, Berkeley</CardDescription>
-                </div>
-                <Badge className="font-normal text-xs bg-secondary/50 text-secondary-foreground">2012 - 2016</Badge>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p>Minor in Design Innovation</p>
-              <p className="mt-2">Graduated with Honors, GPA: 3.8/4.0</p>
-            </CardContent>
-          </Card>
+              </CardHeader>
+              <CardContent>
+                <p>Location: {edu.location}</p>
+                <p className="mt-2">Graduated: {edu.graduationDate}</p>
+              </CardContent>
+            </Card>
+          ))}
         </TabsContent>
 
         <TabsContent value="achievements" className="space-y-4 animate-in fade-in-50 duration-300">

@@ -24,9 +24,12 @@ import ProjectsView from "@/components/projects-view"
 import SkillsView from "@/components/skills-view"
 import AboutView from "@/components/about-view"
 import ContactView from "@/components/contact-view"
+import { resumeData } from "@/lib/data/ResumeData"
 
 export default function Dashboard() {
   const [activeView, setActiveView] = useState("projects")
+  const { name } = resumeData
+  const initials = name.split(' ').map(n => n[0]).join('')
 
   return (
     <SidebarProvider>
@@ -36,11 +39,11 @@ export default function Dashboard() {
             <div className="flex items-center gap-3 px-4 py-3">
               <Avatar className="border-0 h-9 w-9">
                 <AvatarImage src="/placeholder.svg?height=40&width=40" alt="Profile" />
-                <AvatarFallback className="bg-primary/10 text-primary">JP</AvatarFallback>
+                <AvatarFallback className="bg-primary/10 text-primary">{initials}</AvatarFallback>
               </Avatar>
               <div>
-                <h3 className="font-normal text-sm">John Portfolio</h3>
-                <p className="text-xs text-muted-foreground">Full Stack Developer</p>
+                <h3 className="font-normal text-sm">{name}</h3>
+                <p className="text-xs text-muted-foreground">{resumeData.experiences[0].title}</p>
               </div>
             </div>
           </SidebarHeader>
@@ -102,7 +105,7 @@ export default function Dashboard() {
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild tooltip="GitHub" className="font-normal text-sm">
-                      <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                      <a href={`https://${resumeData.contact.github}`} target="_blank" rel="noopener noreferrer">
                         <Github className="h-4 w-4" />
                         <span>GitHub</span>
                       </a>
@@ -110,9 +113,9 @@ export default function Dashboard() {
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild tooltip="LinkedIn" className="font-normal text-sm">
-                      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                      <a href={resumeData.contact.website} target="_blank" rel="noopener noreferrer">
                         <Activity className="h-4 w-4" />
-                        <span>LinkedIn</span>
+                        <span>Website</span>
                       </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
@@ -125,6 +128,7 @@ export default function Dashboard() {
               <Button
                 variant="outline"
                 className="w-full font-normal text-sm border-border/30 hover:bg-secondary transition-colors duration-200"
+                onClick={() => setActiveView("contact")}
               >
                 <Mail className="mr-2 h-4 w-4" />
                 Contact Me
