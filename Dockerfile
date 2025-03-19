@@ -31,6 +31,7 @@ COPY tsconfig.json ../
 # Environment variables must be present at build time
 ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
+ENV POSTGRES_URL=${DATABASE_URL}
 
 
 # pnpm db:migrate
