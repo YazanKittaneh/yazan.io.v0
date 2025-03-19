@@ -20,13 +20,13 @@ COPY app ./app
 COPY components ./components
 COPY lib ./lib
 COPY hooks ./hooks
-COPY components.json ../
-COPY drizzle.config.ts ../
-COPY middleware.ts ../
-COPY next.config.ts ../
-COPY postcss.config.mjs ../
-COPY tailwind.config.ts ../
-COPY tsconfig.json ../
+COPY components.json .
+COPY drizzle.config.ts .
+COPY middleware.ts .
+COPY next.config.ts .
+COPY postcss.config.mjs .
+COPY tailwind.config.ts .
+COPY tsconfig.json .
 
 # Environment variables must be present at build time
 ARG DATABASE_URL
