@@ -5,7 +5,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import { resumeData } from "@/lib/data/ResumeData"
 
 export default function AboutView() {
   return (
@@ -20,28 +19,26 @@ export default function AboutView() {
           <CardHeader className="text-center">
             <div className="mx-auto mb-4">
               <Avatar className="h-24 w-24 border-0 ring-2 ring-border/20 ring-offset-2 ring-offset-background">
-                <AvatarImage src="/avatar.jpg" alt="Profile" />
-                <AvatarFallback className="text-2xl bg-primary/10 text-primary">
-                  {resumeData.name.split(' ').map(n => n[0]).join('')}
-                </AvatarFallback>
+                <AvatarImage src="/placeholder.svg?height=96&width=96" alt="Profile" />
+                <AvatarFallback className="text-2xl bg-primary/10 text-primary">JP</AvatarFallback>
               </Avatar>
             </div>
-            <CardTitle className="font-normal">{resumeData.name}</CardTitle>
-            <CardDescription>{resumeData.experiences[0].title}</CardDescription>
+            <CardTitle className="font-normal">John Portfolio</CardTitle>
+            <CardDescription>Full Stack Developer</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-muted-foreground" />
-                <span>{resumeData.experiences[0].location}</span>
+                <span>San Francisco, CA</span>
               </div>
               <div className="flex items-center gap-2">
                 <GraduationCap className="h-4 w-4 text-muted-foreground" />
-                <span>{resumeData.education[0].degree}, {resumeData.education[0].institution}</span>
+                <span>Computer Science, Stanford University</span>
               </div>
               <div className="flex items-center gap-2">
                 <Briefcase className="h-4 w-4 text-muted-foreground" />
-                <span>{resumeData.experiences.length}+ Years Experience</span>
+                <span>5+ Years Experience</span>
               </div>
 
               <Separator className="bg-border/20" />
@@ -118,45 +115,79 @@ export default function AboutView() {
         </TabsList>
 
         <TabsContent value="experience" className="space-y-4 animate-in fade-in-50 duration-300">
-          {resumeData.experiences.map((experience, index) => (
-            <Card key={index} className="border border-border/20 shadow-none hover-card">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="font-normal">{experience.title}</CardTitle>
-                    <CardDescription>{experience.company}</CardDescription>
-                  </div>
-                  <Badge className="font-normal text-xs bg-secondary/50 text-secondary-foreground">{experience.period}</Badge>
+          <Card className="border border-border/20 shadow-none hover-card">
+            <CardHeader>
+              <div className="flex items-start justify-between">
+                <div>
+                  <CardTitle className="font-normal">Senior Frontend Developer</CardTitle>
+                  <CardDescription>TechCorp Inc.</CardDescription>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <ul className="list-disc pl-5 space-y-2">
-                  {experience.achievements.map((achievement, idx) => (
-                    <li key={idx} dangerouslySetInnerHTML={{ __html: achievement }} />
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          ))}
+                <Badge className="font-normal text-xs bg-secondary/50 text-secondary-foreground">2021 - Present</Badge>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-disc pl-5 space-y-2">
+                <li>Led the frontend development of the company's flagship product</li>
+                <li>Implemented a new component library that reduced development time by 30%</li>
+                <li>Mentored junior developers and conducted code reviews</li>
+                <li>Collaborated with design and product teams to improve user experience</li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="border border-border/20 shadow-none hover-card">
+            <CardHeader>
+              <div className="flex items-start justify-between">
+                <div>
+                  <CardTitle className="font-normal">Full Stack Developer</CardTitle>
+                  <CardDescription>Innovate Solutions</CardDescription>
+                </div>
+                <Badge className="font-normal text-xs bg-secondary/50 text-secondary-foreground">2018 - 2021</Badge>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-disc pl-5 space-y-2">
+                <li>Developed and maintained multiple client web applications</li>
+                <li>Built RESTful APIs using Node.js and Express</li>
+                <li>Implemented authentication and authorization systems</li>
+                <li>Optimized database queries and improved application performance</li>
+              </ul>
+            </CardContent>
+          </Card>
         </TabsContent>
 
         <TabsContent value="education" className="space-y-4 animate-in fade-in-50 duration-300">
-          {resumeData.education.map((edu, index) => (
-            <Card key={index} className="border border-border/20 shadow-none hover-card">
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="font-normal">{edu.degree}</CardTitle>
-                    <CardDescription>{edu.institution}</CardDescription>
-                  </div>
-                  <Badge className="font-normal text-xs bg-secondary/50 text-secondary-foreground">{edu.graduationDate}</Badge>
+          <Card className="border border-border/20 shadow-none hover-card">
+            <CardHeader>
+              <div className="flex items-start justify-between">
+                <div>
+                  <CardTitle className="font-normal">M.S. in Computer Science</CardTitle>
+                  <CardDescription>Stanford University</CardDescription>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p>{edu.location}</p>
-              </CardContent>
-            </Card>
-          ))}
+                <Badge className="font-normal text-xs bg-secondary/50 text-secondary-foreground">2016 - 2018</Badge>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p>Specialized in Human-Computer Interaction and Web Technologies</p>
+              <p className="mt-2">Thesis: "Improving User Experience in Progressive Web Applications"</p>
+            </CardContent>
+          </Card>
+
+          <Card className="border border-border/20 shadow-none hover-card">
+            <CardHeader>
+              <div className="flex items-start justify-between">
+                <div>
+                  <CardTitle className="font-normal">B.S. in Computer Science</CardTitle>
+                  <CardDescription>University of California, Berkeley</CardDescription>
+                </div>
+                <Badge className="font-normal text-xs bg-secondary/50 text-secondary-foreground">2012 - 2016</Badge>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p>Minor in Design Innovation</p>
+              <p className="mt-2">Graduated with Honors, GPA: 3.8/4.0</p>
+            </CardContent>
+          </Card>
         </TabsContent>
 
         <TabsContent value="achievements" className="space-y-4 animate-in fade-in-50 duration-300">

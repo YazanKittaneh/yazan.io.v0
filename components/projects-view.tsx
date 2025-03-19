@@ -12,7 +12,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Progress } from "@/components/ui/progress"
 import { resumeData } from "@/lib/data/ResumeData"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import Image from "next/image"
 
 // Map the projects to match the expected format
 const projects = resumeData.projects.map(project => ({
@@ -43,7 +42,7 @@ export default function ProjectsView() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h2 className="text-2xl font-normal tracking-tight text-foreground/90">Projects</h2>
-          <p className="text-muted-foreground">Browse through my portfolio of {resumeData.projects.length} projects</p>
+          <p className="text-muted-foreground">Browse through my portfolio of {projects.length} projects</p>
         </div>
         <div className="flex items-center gap-2">
           <Input
@@ -131,29 +130,12 @@ export default function ProjectsView() {
             </CardHeader>
             <CardContent className="p-4 pt-0">
               <div className="flex flex-wrap gap-1">
-                {project.technologies.map((tech, idx) => (
-                  <Badge key={idx} variant="outline" className="bg-secondary/30 border-border/20 font-normal text-xs">
+                {project.technologies.map((tech) => (
+                  <Badge key={tech} variant="outline" className="bg-secondary/30 border-border/20 font-normal text-xs">
                     {tech}
                   </Badge>
                 ))}
               </div>
-              
-              <Tabs defaultValue="challenge" className="mt-4">
-                <TabsList className="grid w-full grid-cols-3">
-                  <TabsTrigger value="challenge">Challenge</TabsTrigger>
-                  <TabsTrigger value="approach">Approach</TabsTrigger>
-                  <TabsTrigger value="result">Result</TabsTrigger>
-                </TabsList>
-                <TabsContent value="challenge" className="text-xs mt-2">
-                  {resumeData.projects.find(p => p.id === project.id)?.challenge}
-                </TabsContent>
-                <TabsContent value="approach" className="text-xs mt-2">
-                  {resumeData.projects.find(p => p.id === project.id)?.approach}
-                </TabsContent>
-                <TabsContent value="result" className="text-xs mt-2">
-                  {resumeData.projects.find(p => p.id === project.id)?.result}
-                </TabsContent>
-              </Tabs>
             </CardContent>
             <CardFooter className="flex items-center justify-between border-t border-border/20 p-4 text-sm text-muted-foreground">
               <div className="flex items-center">

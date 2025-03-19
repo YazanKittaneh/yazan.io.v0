@@ -5,7 +5,6 @@ import type React from "react"
 import { useState } from "react"
 import { AtSign, Github, Linkedin, Mail, MapPin, Phone, Send, Twitter } from "lucide-react"
 import { toast } from "sonner"
-import { resumeData } from "@/lib/data/ResumeData"
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -154,7 +153,7 @@ export default function ContactView() {
                 </div>
                 <div>
                   <p className="text-sm font-normal">Email</p>
-                  <p className="text-sm text-muted-foreground">{resumeData.contact.email}</p>
+                  <p className="text-sm text-muted-foreground">john.portfolio@example.com</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -163,7 +162,7 @@ export default function ContactView() {
                 </div>
                 <div>
                   <p className="text-sm font-normal">Phone</p>
-                  <p className="text-sm text-muted-foreground">{resumeData.contact.phone}</p>
+                  <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -172,7 +171,7 @@ export default function ContactView() {
                 </div>
                 <div>
                   <p className="text-sm font-normal">Location</p>
-                  <p className="text-sm text-muted-foreground">{resumeData.experiences[0].location}</p>
+                  <p className="text-sm text-muted-foreground">San Francisco, CA</p>
                 </div>
               </div>
             </CardContent>
@@ -190,7 +189,7 @@ export default function ContactView() {
                   className="flex items-center gap-2 justify-start font-normal border-border/30 hover:bg-secondary transition-colors duration-200"
                   asChild
                 >
-                  <a href={`https://${resumeData.contact.github}`} target="_blank" rel="noopener noreferrer">
+                  <a href="https://github.com" target="_blank" rel="noopener noreferrer">
                     <Github className="h-4 w-4" />
                     <span>GitHub</span>
                   </a>
@@ -220,7 +219,7 @@ export default function ContactView() {
                   className="flex items-center gap-2 justify-start font-normal border-border/30 hover:bg-secondary transition-colors duration-200"
                   asChild
                 >
-                  <a href={`mailto:${resumeData.contact.email}`}>
+                  <a href="mailto:john.portfolio@example.com">
                     <AtSign className="h-4 w-4" />
                     <span>Email</span>
                   </a>

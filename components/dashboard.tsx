@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import { Activity, Code2, Folder, Github, Mail, User2 } from "lucide-react"
-import { resumeData } from "@/lib/data/ResumeData"
 
 import {
   Sidebar,
@@ -36,14 +35,12 @@ export default function Dashboard() {
           <SidebarHeader>
             <div className="flex items-center gap-3 px-4 py-3">
               <Avatar className="border-0 h-9 w-9">
-                <AvatarImage src="/avatar.jpg" alt="Profile" />
-                <AvatarFallback className="bg-primary/10 text-primary">
-                  {resumeData.name.split(' ').map(n => n[0]).join('')}
-                </AvatarFallback>
+                <AvatarImage src="/placeholder.svg?height=40&width=40" alt="Profile" />
+                <AvatarFallback className="bg-primary/10 text-primary">JP</AvatarFallback>
               </Avatar>
               <div>
-                <h3 className="font-normal text-sm">{resumeData.name}</h3>
-                <p className="text-xs text-muted-foreground">{resumeData.experiences[0].title}</p>
+                <h3 className="font-normal text-sm">John Portfolio</h3>
+                <p className="text-xs text-muted-foreground">Full Stack Developer</p>
               </div>
             </div>
           </SidebarHeader>
@@ -105,7 +102,7 @@ export default function Dashboard() {
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild tooltip="GitHub" className="font-normal text-sm">
-                      <a href={`https://${resumeData.contact.github}`} target="_blank" rel="noopener noreferrer">
+                      <a href="https://github.com" target="_blank" rel="noopener noreferrer">
                         <Github className="h-4 w-4" />
                         <span>GitHub</span>
                       </a>
@@ -113,7 +110,7 @@ export default function Dashboard() {
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild tooltip="LinkedIn" className="font-normal text-sm">
-                      <a href="https://linkedin.com/in/yazankittaneh" target="_blank" rel="noopener noreferrer">
+                      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
                         <Activity className="h-4 w-4" />
                         <span>LinkedIn</span>
                       </a>
@@ -128,7 +125,6 @@ export default function Dashboard() {
               <Button
                 variant="outline"
                 className="w-full font-normal text-sm border-border/30 hover:bg-secondary transition-colors duration-200"
-                onClick={() => setActiveView("contact")}
               >
                 <Mail className="mr-2 h-4 w-4" />
                 Contact Me

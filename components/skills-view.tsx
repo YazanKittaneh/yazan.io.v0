@@ -3,46 +3,55 @@ import { BarChart3, Code, Database, FileCode2, Layers, Palette, Server } from "l
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { resumeData } from "@/lib/data/ResumeData"
 
-// Map the technology categories to include icons
-const skillCategories = resumeData.technologies.map(category => {
-  let icon;
-  switch(category.category) {
-    case "Frontend":
-      icon = <Palette className="h-5 w-5" />;
-      break;
-    case "Backend":
-      icon = <Server className="h-5 w-5" />;
-      break;
-    case "Languages":
-      icon = <Code className="h-5 w-5" />;
-      break;
-    case "Testing":
-      icon = <FileCode2 className="h-5 w-5" />;
-      break;
-    case "Infrastructure":
-      icon = <Layers className="h-5 w-5" />;
-      break;
-    case "LLM Models":
-      icon = <Database className="h-5 w-5" />;
-      break;
-    default:
-      icon = <BarChart3 className="h-5 w-5" />;
-  }
-  
-  // Map skills to include a level (we'll use a random level between 70-95 for demonstration)
-  const skills = category.skills.map(skill => ({
-    name: skill,
-    level: Math.floor(Math.random() * 25) + 70 // Random level between 70-95
-  }));
-  
-  return {
-    name: category.category,
-    icon,
-    skills
-  };
-});
+const skillCategories = [
+  {
+    name: "Frontend",
+    icon: <Palette className="h-5 w-5" />,
+    skills: [
+      { name: "React", level: 90 },
+      { name: "Next.js", level: 85 },
+      { name: "HTML/CSS", level: 95 },
+      { name: "JavaScript", level: 90 },
+      { name: "TypeScript", level: 80 },
+      { name: "Tailwind CSS", level: 85 },
+    ],
+  },
+  {
+    name: "Backend",
+    icon: <Server className="h-5 w-5" />,
+    skills: [
+      { name: "Node.js", level: 85 },
+      { name: "Express", level: 80 },
+      { name: "Python", level: 75 },
+      { name: "Django", level: 70 },
+      { name: "RESTful APIs", level: 85 },
+      { name: "GraphQL", level: 75 },
+    ],
+  },
+  {
+    name: "Database",
+    icon: <Database className="h-5 w-5" />,
+    skills: [
+      { name: "MongoDB", level: 85 },
+      { name: "PostgreSQL", level: 80 },
+      { name: "MySQL", level: 75 },
+      { name: "Firebase", level: 80 },
+      { name: "Redis", level: 70 },
+    ],
+  },
+  {
+    name: "DevOps",
+    icon: <Layers className="h-5 w-5" />,
+    skills: [
+      { name: "Git", level: 90 },
+      { name: "Docker", level: 75 },
+      { name: "CI/CD", level: 70 },
+      { name: "AWS", level: 65 },
+      { name: "Vercel", level: 85 },
+    ],
+  },
+]
 
 export default function SkillsView() {
   return (
